@@ -1,0 +1,5 @@
+C:\Users\Dell\source\repos\a_star_algo\a_star_algo\bin\Debug\netcoreapp3.1\a_star_algo.exe
+C:\Users\Dell\source\repos\a_star_algo\a_star_algo\obj\Debug\netcoreapp3.1\a_star_algo.csprojAssemblyReference.cache
+C:\Users\Dell\source\repos\a_star_algo\a_star_algo\obj\Debug\netcoreapp3.1\a_star_algo.AssemblyInfoInputs.cache
+C:\Users\Dell\source\repos\a_star_algo\a_star_algo\obj\Debug\netcoreapp3.1\a_star_algo.AssemblyInfo.cs
+C:\Users\Dell\source\repos\a_star_algo\a_star_algo\obj\Debug\netcoreapp3.1\a_star_algo.csproj.CoreCompileInputs.cache
