@@ -11,7 +11,6 @@ namespace utility
         {
             ROW = row;
             COL = col;
-
         }
         public bool isUnblocked(int[,] grid, int row, int col)
         {
@@ -24,31 +23,33 @@ namespace utility
         {
             return (row >= 0) && (row < ROW) && (col >= 0) && (col < COL);
         }
-        public bool isDestination(int row, int col, Node destination)
+        public bool isDestination(int row, int col, pair destination)
         {
-            return (row == destination.x && col == destination.y);
+            return (row == destination.first && col == destination.second);
         }
-        public void tracePath(Node[,] nodeDetails, Node destination)
+        public void tracePath(cell[,] nodeDetails, pair destination)
         {
-            int row = destination.x;
-            int col = destination.y;
-            Stack<Node> Path = new Stack<Node>();
+            Console.WriteLine("\nThe Path is: ");
+            int row = destination.first;
+            int col = destination.second;
+            Stack<pair> Path = new Stack<pair>();
 
-            while (!(nodeDetails[row, col].parent.x == row && nodeDetails[row, col].parent.y == col))
+            while (!(nodeDetails[row, col].parent_i == row && nodeDetails[row, col].parent_j == col))
             {
-                Path.Push(new Node(row, col));
-                int temp_row = nodeDetails[row, col].x;
-                int temp_col = nodeDetails[row, col].y;
+                Path.Push(new pair(row, col));
+                int temp_row = nodeDetails[row, col].parent_i;
+                int temp_col = nodeDetails[row, col].parent_j;
                 row = temp_row;
                 col = temp_col;
             }
 
-            Path.Push(new Node(row, col));
+            Path.Push(new pair(row, col));
             while (!(Path.Count == 0))
             {
-                Node p = Path.Pop();
-                Console.WriteLine("-> ({0},{1}) ", p.x, p.y);
+                pair p = Path.Pop();
+                Console.WriteLine("-> ({0},{1}) ", p.first, p.second);
             }
+            return;
         }
 
     }

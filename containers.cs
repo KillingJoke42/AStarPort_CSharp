@@ -1,66 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace containers
 {
-    public class Node
+    public class cell
     {
-        public Node parent;
-        public bool visited;
-        public int x, y;
+        public int parent_i, parent_j;
         public double f, g, h;
-        public List<Edge> neighbours = new List<Edge>();
 
-        public Node(int x, int y)
+        public cell(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            this.parent_i = x;
+            this.parent_j = y;
         }
-        public Node(int x, int y, double f)
+        public void showNode()
         {
-            this.x = x;
-            this.y = y;
-            this.f = f;
+            Console.WriteLine("Node_parent_i: {0}; Node_parent_j: {1}; Node_f: {2}; Node_g: {3}; Node_h: {4}\n", parent_i, parent_j, f, g, h);
         }
     }
 
-    public class Edge
+    public class pair
     {
-        public Node node { get; set; }
-        public Edge(Node v, string street)
+        public int first;
+        public int second;
+        public pair(int x, int y)
         {
-            node = v;
+            this.first = x;
+            this.second = y;
         }
     }
 
-    public class SimplePriorityQueue<TValue> : SimplePriorityQueue<TValue, int> { }
-    public class SimplePriorityQueue<TValue, TPriority> where TPriority : IComparable
+    public class pPair
     {
-        private SortedDictionary<TPriority, Queue<TValue>> dict = new SortedDictionary<TPriority, Queue<TValue>>();
-
-        public int Count { get; private set; }
-        public bool Empty { get { return Count == 0; } }
-
-        public void Enqueue(TValue val)
+        public double first;
+        public pair second;
+        public pPair(double x, pair pair_obj)
         {
-            Enqueue(val, default(TPriority));
-        }
-
-        public void Enqueue(TValue val, TPriority pri)
-        {
-            ++Count;
-            if (!dict.ContainsKey(pri)) dict[pri] = new Queue<TValue>();
-            dict[pri].Enqueue(val);
-        }
-
-        public TValue Dequeue()
-        {
-            --Count;
-            var item = dict.Last();
-            if (item.Value.Count == 1) dict.Remove(item.Key);
-            return item.Value.Dequeue();
+            this.first = x;
+            this.second = pair_obj;
         }
     }
 }
-
