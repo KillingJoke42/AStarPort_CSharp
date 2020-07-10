@@ -1,7 +1,8 @@
 ﻿using System;
 using containers;
 using utility;
-using System.Linq;
+//Remove unwanted commits?
+//using System.Linq;
 using System.Collections.Generic;
 namespace astarsolver
 {
@@ -65,8 +66,7 @@ namespace astarsolver
                         nodeDetails[i_index, j_index].f = fNew;
                         nodeDetails[i_index, j_index].g = gNew;
                         nodeDetails[i_index, j_index].h = hNew;
-                        nodeDetails[i_index, j_index].parent.x = i_index;
-                        nodeDetails[i_index, j_index].parent.y = j_index;
+                        nodeDetails[i_index, j_index].parent = new Node(i_index, j_index);
                     }
                 }
             }
@@ -96,17 +96,15 @@ namespace astarsolver
             bool[,] closedList = new bool[ROW, COL];
             Node[,] nodeDetails = new Node[ROW, COL];
             int i, j;
-
             for (i = 0; i < ROW; i++)
             {
                 for (j = 0; j < COL; j++)
                 {
                     //Console.WriteLine(double.MaxValue);
-                    nodeDetails[i, j].f = double.MaxValue;
-                    nodeDetails[i, j].g = double.MaxValue;
-                    nodeDetails[i, j].h = double.MaxValue;
-                    nodeDetails[i, j].x = -1;
-                    nodeDetails[i, j].y = -1;
+                    nodeDetails[i, j] = new Node(-1, -1);
+                    nodeDetails[i, j].f = (double)double.MaxValue;
+                    nodeDetails[i, j].g = (double)double.MaxValue;
+                    nodeDetails[i, j].h = (double)double.MaxValue;
                 }
             }
 
@@ -115,8 +113,7 @@ namespace astarsolver
             nodeDetails[i, j].f = 0.0;
             nodeDetails[i, j].g = 0.0;
             nodeDetails[i, j].h = 0.0;
-            nodeDetails[i, j].parent.x = i;
-            nodeDetails[i, j].parent.y = j;
+            nodeDetails[i, j].parent = new Node(i, j);
 
             SimplePriorityQueue<Node> openList = new SimplePriorityQueue<Node>();
             openList.Enqueue(new Node(i, j, (double)0.0));
@@ -131,21 +128,21 @@ namespace astarsolver
                 closedList[i, j] = true;
 
                 foundDest = successorSolver(i - 1, j, 1.0, dest, grid, ref closedList, ref openList, ref nodeDetails);
-                if (!foundDest) return;
+                if (foundDest) return;
                 foundDest = successorSolver(i + 1, j, 1.0, dest, grid, ref closedList, ref openList, ref nodeDetails);
-                if (!foundDest) return;
+                if (foundDest) return;
                 foundDest = successorSolver(i, j + 1, 1.0, dest, grid, ref closedList, ref openList, ref nodeDetails);
-                if (!foundDest) return;
+                if (foundDest) return;
                 foundDest = successorSolver(i, j - 1, 1.0, dest, grid, ref closedList, ref openList, ref nodeDetails);
-                if (!foundDest) return;
+                if (foundDest) return;
                 foundDest = successorSolver(i - 1, j + 1, 1.414, dest, grid, ref closedList, ref openList, ref nodeDetails);
-                if (!foundDest) return;
+                if (foundDest) return;
                 foundDest = successorSolver(i - 1, j - 1, 1.414, dest, grid, ref closedList, ref openList, ref nodeDetails);
-                if (!foundDest) return;
+                if (foundDest) return;
                 foundDest = successorSolver(i + 1, j + 1, 1.414, dest, grid, ref closedList, ref openList, ref nodeDetails);
-                if (!foundDest) return;
+                if (foundDest) return;
                 foundDest = successorSolver(i + 1, j - 1, 1.414, dest, grid, ref closedList, ref openList, ref nodeDetails);
-                if (!foundDest)
+                if (foundDest)
                     return;
                 else
                     Console.WriteLine("Failed to find the Destination Cell\n");
